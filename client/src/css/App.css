@@ -1,0 +1,20 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.App {
+  width: 100vw;
+  height: 100vh;
+  
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexV{
+  flex-direction: column;
+}
+
