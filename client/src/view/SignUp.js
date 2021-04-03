@@ -1,66 +1,81 @@
 import React ,{useState} from 'react'
-import {useGoogleLogin} from 'react-google-login'
+import {GoogleLogin} from 'react-google-login'
+import FacebookLogin from 'react-facebook-login'
 import Axios from 'axios'
-import '../css/SignUp.css'
+import {Link} from 'react-router-dom'
 
 export default function SignUp() {
 
-    const [nom,setNom]=useState("");
-    const [prenom,setPrenom]=useState("");
-    const [id,setId]=useState("");
-    const [pass1,setPass1]=useState("");
-    const [pass2,setPass2]=useState("");
+    const [password,setPassword]=useState("");
     const [email,setEmail]=useState("");
+    const [erreur,setErreur]=useState({etat:false,message:""})
 
     /*Fonctions de gestion de connexion avec google login **/
-    const [clientId] ='737110455179-kht4r0260p6c5r4q150dbnl4plvvjp53.apps.googleusercontent.com';
+    const [clientId] =useState("1088367975989-3nal6ab50at7h60kvr2bjlacirs14isi.apps.googleusercontent.com");
+    
     const onSuccess =(res)=>{
-        setEmail(res.profileObj.email);
-        setPass1(res.profileObj.name);
-    }
+        enregistrer(res.profileObj.email,res.profileObj.name);
+    };
 
     const onFailure =(res)=>{
         console.log(res);
     }
 
-    const {GoogleSignin} = useGoogleLogin({
-        onSuccess,
-        onFailure,
-        clientId,
-        isSignedIn:true,
-        accessType:'offline',
-    });
+    /*Fonctions de gestion de connexion avec google login **/
+
+    const reponseFacebook =(reponse)=>{    
+        enregistrer(reponse.email,reponse.name);
+    }
     
     
 
-    const enregistrer = ()=>{
+    const enregistrer = (sendEmail,sendPassword)=>{
+
         Axios.post('http://localhost:3001/register',{
-            nom:nom,
-            prenom:prenom,
-            identifiant:id,
-            mdp:pass1,
-            email:email
+            mdp:sendPassword,
+            email:sendEmail
         }).then((reponse)=>{
-            console.log('succes');
+            if(reponse.data.code==="ER_DUP_ENTRY"){
+                setErreur({etat:true,message:"Vous avez déja un compte"})
+            }else{
+                window.location="/signin";
+            }
+           
         });
     }
 
     return (
-        <div className="signin center">
-            <div className="formulaire center flexV">
-                <h1>S'enregistrer</h1>
-                <div className="center flexH">
-                    <div className="signInGoogle center" onClick={GoogleSignin}></div>
-                    <div className="signInFacebook center" ></div>
+        <div className="sign center">
+            <div className="sign flexV">
+                <Link className="btnConnecter" to="/signin">Se connecter</Link>
+                <div className="formulaire center flexV">
+                    <div className="logo"></div>
+                    <h1 className="titre1">{!erreur.etat ? " Bienvenue !!!" : erreur.message}</h1>
+                    <input className="input" type="text" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}}/>
+                    <input className="input" type="password" placeholder="Créer un mot de passe" onChange={(e)=>{setPassword(e.target.value)}}/>
+                    <div className="button center" onClick={(e)=>{enregistrer(email,password)}}>S'enregistrer</div>  
+                    <p className="text2">OU</p>
+                    <GoogleLogin
+                        clientId={clientId}
+                        className="signGoogle center"
+                        buttonText="Continuer avec Google"
+                        onSuccess={onSuccess}
+                        onFailure={onFailure}
+                        cookiePolicy="single_host_origin"
+                    />
+                        
+                    <FacebookLogin
+                        textButton="Continuer avec Facebook"
+                        appId="456100625502115"
+                        cssClass="signFacebook center"
+                        fields="name,email,picture"
+                        callback={reponseFacebook}               
+                    />
+                    <p className="smallInfo">Créer un compte signifie que vous êtes d'accord avec : <a href="/">nos conditions d'utilisation</a> et <a href="/">politique de confidencialité</a></p>       
+                                        
                 </div>
-                <input className="input" type="text" placeholder="Nom" onChange={(e)=>{setNom(e.target.value)}}/>
-                <input className="input" type="text" placeholder="Prenom" onChange={(e)=>{setPrenom(e.target.value)}}/>
-                <input className="input" type="email" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}}/>
-                <input className="input" type="text" placeholder="Choix identifiant" onChange={(e)=>{setId(e.target.value)}}/>
-                <input className="input" type="password" placeholder="Mot de passe" onChange={(e)=>{setPass1(e.target.value)}}/>
-                <input className="input" type="password" placeholder="Confirmer mot de passe" onChange={(e)=>{setPass2(e.target.value)}}/>
-                <div className="button center" onClick={enregistrer}>S'enregistrer</div>                        
             </div>
+            
         </div>
     )
 }

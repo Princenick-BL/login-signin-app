@@ -28,9 +28,9 @@ app.post('/register',(req,res)=>{
         [userName,userFirstName,userPseudo,userPassWord,userEmail],
         (err,result)=>{
             if(err){
-                console.log(err);
+                res.send(err);
             }else{
-                res.send('Enregistrement réussi');
+                res.send(result);
             }
         }
     )
@@ -46,7 +46,7 @@ app.post('/connexion',(req,res)=>{
         [identifiant,mdp],
         (err,result)=>{
             if(err){
-                console.log(err);
+                res.send(err);
             }else{
                
                 res.send(result);

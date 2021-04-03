@@ -1,10 +1,20 @@
-.login{
+.sign{
     
-    width: 100vw;
-    height: 100vh;
-    text-align: center;
+    width: 100%;
+    min-height: 100%;
     background: rgb(36,0,27);
     background: linear-gradient(90deg, rgba(36,0,27,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+.btnConnecter{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
 }
 .formulaire{
     min-height: 450px;
@@ -15,49 +25,85 @@
     border-radius: 30px;
     margin: 50px auto;
 }
-
-.input{
+.logo{
+    
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../media/Logo.png");
+    width: 50px;
     height: 50px;
+    
+}
+.titre1{
+    text-align: center;
+    color: rgb(95, 94, 94);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.text2{
+    color: rgb(95, 94, 94);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.input{
+    font-weight: bold;
+    background-color: rgba(204, 204, 204, 0.542);
+    padding: 13px;
     width: 80%;
     border: none;
     padding-left: 10px;
-    border-bottom: 1px solid #ccc;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 10px;
+    border-radius: 5px;
 }
-.input:focus{
+.signGoogle,.signFacebook,.input:focus{
     outline-style: none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
     border-color: transparent;
     border-bottom: 2px solid blue;
-}
-.signInGoogle,.signInFacebook{
-    background-position: left;
-    background-size: 30px;
-    background-repeat: no-repeat;
-    padding: 15px;
-    margin: 10px;
-    width: 100%;
-}
-.signInGoogle{
-    
-    background-image: url("../media/google.png");
-    background-color: #fff;
-    border: 1px #ccc solid;
-    font-weight: bold;
-}
-.signInFacebook{
-    border: none;
-    color: #fff;
-    background-color: rgb(68, 68, 177);
 }
 .button{
     cursor: pointer;
     background: rgba(9,9,121,1) ;
     color: #fff;
-    width: 150px;
+    width: 83%;
     height: 30px;
     padding: 5px;
-    border-radius: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    border-radius: 5px;
+    margin-top: 10px;
+
+}
+.signGoogle,.signFacebook{
+    border-radius: 5px;
+    background-position: left;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    padding: 13px;
+    min-width:305px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.signGoogle{
+    background-color: #ccc;
+    color:rgba(204, 204, 204, 0.542);
+    border: 1px #ccc solid;
+    font-weight: bold;
+}
+.signFacebook{
+    margin-top: 5px;
+    background-image: "fa-facebook";
+    border: none;
+    color: #fff;
+    background-color: rgb(68, 68, 177);
+}
+.smallInfo{
+    width: 80%;
+    text-align: justify;
+    margin-top: 20px;
+    font-size: 0.7em;
+    color: rgb(133, 133, 133);
+    margin-bottom: 50px;
 }
