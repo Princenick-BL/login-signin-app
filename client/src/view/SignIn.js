@@ -38,10 +38,10 @@ export default function SigIn() {
             email:sendEmail,
             mdp:sendPassword
         }).then((reponse)=>{
-            
+            console.log(reponse.data.length)
             if(reponse.data.length!==0){
                 console.log('true');
-                window.location="/dashboard";
+                //window.location="/dashboard";
             }else{
                 setErreur({etat:true,message:"Aucun compte correspondant"})
             }
